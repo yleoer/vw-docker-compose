@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    volumes:
+      - "./data:/data"
+      - "./.env:/.env"
+  nginx:
+    image: nginx:1.22.0-alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./conf/vaultwarden.conf:/etc/nginx/conf.d/vw.yxuefeng.com.conf"
+      - "./ssl:/etc/nginx/ssl"
